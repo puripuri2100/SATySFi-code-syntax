@@ -1,0 +1,260 @@
+@require: color
+@require: satysfi-lib/regexp
+@require: satysfi-lib/typeset/code2
+
+
+module CodeSyntax :sig
+
+  val syntax-satysfi : syntax-def
+
+end = struct
+
+let make-rgb r g b = RGB(r /. 256., g /. 256., b /. 256.)
+
+
+let syntax-satysfi =
+  let lst =
+    [
+      RegExp.of-string `(a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)(a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|1|2|3|4|5|6|7|8|9|0|-)*`;
+      RegExp.of-string `(\\|\+)(a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|1|2|3|4|5|6|7|8|9|0|-)+`;
+      RegExp.of-string `(A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z)(a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|1|2|3|4|5|6|7|8|9|0|-)+.`;
+      RegExp.of-string `(@require|@import|@stage)`;
+    ]
+  in
+  (|
+    ident-regexp = RegExp.choice lst;
+    groups = [
+      (|
+        color = Color.orange;
+        keywords = [
+          `type`;
+          `match`;
+          `with`;
+          `fun`;
+          `let`;
+          `let-rec`;
+          `let-inline`;
+          `let-block`;
+          `let-mutable`;
+          `in`;
+          `@require`;
+          `@import`;
+          `@stage`;
+        ];
+      |);
+      (|
+        color = make-rgb 56. 180. 139.;
+        keywords = [
+          `document`;
+          `true`;
+          `false`;
+          `set-math-variant-char`;
+          `convert-string-for-math`;
+          `set-math-command`;
+          `math-variant-char`;
+          `get-left-math-class`;
+          `get-right-math-class`;
+          `space-between-maths`;
+          `math-concat`;
+          `math-group`;
+          `math-sup`;
+          `math-sub`;
+          `math-frac`;
+          `math-radical`;
+          `math-paren`;
+          `math-paren-with-middle`;
+          `math-upper`;
+          `math-lower`;
+          `math-pull-in-scripts`;
+          `math-char`;
+          `math-big-char`;
+          `math-char-with-kern`;
+          `math-big-char-with-kern`;
+          `text-in-math`;
+          `math-color`;
+          `math-char-class`;
+          `embed-math`;
+          `tabular`;
+          `load-pdf-image`;
+          `load-image`;
+          `"use-image-by-width`;
+          `hook-page-break`;
+          `unite-path`;
+          `shift-path`;
+          `get-path-bbox`;
+          `start-path`;
+          `line-to`;
+          `bezier-to`;
+          `terminate-path`;
+          `close-with-line`;
+          `close-with-bezier`;
+          `read-inline`;
+          `read-block`;
+          `stringify-inline`;
+          `stringify-block`;
+          `deepen-indent`;
+          `break`;
+          `get-initial-text-info`;
+          `embed-block-breakable`;
+          `line-break`;
+          `page-break`;
+          `block-frame-breakable`;
+          `add-footnote`;
+          `embed-block-top`;
+          `block-skip`;
+          `embed-block-bottom`;
+          `line-stack-top`;
+          `line-stack-bottom`;
+          `get-initial-context`;
+          `set-hyphen-min`;
+          `set-min-gap-of-lines`;
+          `set-space-ratio`;
+          `set-space-ratio-between-scripts`;
+          `get-space-ratio-between-scripts`;
+          `set-paragraph-margin`;
+          `set-min-paragraph-ascender-and-descender`;
+          `set-font-size`;
+          `get-font-size`;
+          `set-font`;
+          `get-font`;
+          `set-math-font`;
+          `set-dominant-wide-script`;
+          `get-dominant-wide-script`;
+          `set-dominant-narrow-script`;
+          `get-dominant-narrow-script`;
+          `set-language`;
+          `get-language`;
+          `set-text-color`;
+          `get-text-color`;
+          `set-leading`;
+          `get-text-width`;
+          `set-manual-rising`;
+          `raise-inline`;
+          `set-hyphen-penalty`;
+          `embed-string`;
+          `extract-string`;
+          `get-axis-height`;
+          `inline-skip`;
+          `inline-glue`;
+          `inline-frame-outer`;
+          `inline-frame-inner`;
+          `inline-frame-fixed`;
+          `inline-frame-breakable`;
+          `inline-graphics`;
+          `inline-graphics-outer`;
+          `script-guard`;
+          `script-guard-both`;
+          `get-leftmost-script`;
+          `get-rightmost-script`;
+          `discretionary`;
+          `register-cross-reference`;
+          `get-cross-reference`;
+          `get-natural-metrics`;
+          `get-natural-length`;
+          `display-message`;
+          `string-same`;
+          `string-sub`;
+          `string-sub-bytes`;
+          `string-length`;
+          `string-byte-length`;
+          `string-scan`;
+          `string-unexplode`;
+          `regexp-of-string`;
+          `string-match`;
+          `split-into-lines`;
+          `split-on-regexp`;
+          `arabic`;
+          `show-float`;
+          `float`;
+          `round`;
+          `draw-text`;
+          `stroke`;
+          `fill`;
+          `dashed-stroke`;
+          `shift-graphics`;
+          `get-graphics-bbox`;
+          `mod`;
+          `not`;
+          `sin`;
+          `asin`;
+          `cos`;
+          `acos`;
+          `tan`;
+          `atan`;
+          `atan2`;
+          `set-word-break-penalty`;
+          `set-every-word-break`;
+          `get-every-word-break`;
+          `probe-cross-reference`;
+          `register-destination`;
+          `register-link-to-uri`;
+          `register-link-to-location`;
+          `register-outline`;
+          `abort-with-message`;
+        ];
+      |);
+      (|
+        color = make-rgb 56. 161. 219.;
+        keywords = [
+          `\href`;
+          `\BNF`;
+          `\BNFs`;
+          `\diagram`;
+          `\code`;
+          `\console`;
+          `\d-code`;
+          `\listing`;
+          `\enumerate`;
+          `\hskip`;
+          `\no-break`;
+          `\SATySFi`;
+          `\LaTeX`;
+          `\TeX`;
+          `\fil`;
+          `\fil-both`;
+          `\picture`;
+          `\token`;
+          `\sp`;
+          `\term`;
+          `\derive`;
+          `\derive-multi`;
+          `\ref`;
+          `\ref-page`;
+          `\figure`;
+          `\emph`;
+          `\footnote`;
+          `\dfn`;
+          `\tabular`;
+        ];
+      |);
+      (|
+        color = make-rgb 30. 80. 162.;
+        keywords = [
+          `+BNF`;
+          `+code`;
+          `+console`;
+          `+listing`;
+          `+enumerate`;
+          `+p`;
+          `+pn`;
+          `+section`;
+          `+subsection`;
+          `+chapter`;
+          `+definition`;
+          `+theorem`;
+          `+example`;
+          `+lemma`;
+          `+corollary`;
+          `+proof`;
+        ];
+      |);
+      (|
+        color = make-rgb 0. 82. 67.;
+        keywords = [
+          `Annot`;
+        ]; 
+      |);
+    ];
+  |)
+
+end
